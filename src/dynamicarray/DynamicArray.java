@@ -3,82 +3,87 @@ package dynamicarray;
 public class DynamicArray {
 
     private int[] array = null;
-    private int kapasite = 5;
-    private int boyut = 0;
+    private int capacity = 5;
+    private int size = 0;
     private int index = 0;
 
     public DynamicArray() {
-        array = new int[kapasite];
-    }
-    
-    public void ekle(int veri) {
-        
-        if (boyut==kapasite) {
-            dizi_genislet();
-        }
-        
-        array[boyut]=veri;
-        boyut++;
+        array = new int[capacity];
     }
 
-    public void ekle(int veri, int index) {
-        
-        if (boyut==kapasite) {
-            dizi_genislet();
+    public void add(int data) {
+
+        if (size == capacity) {
+            array_expand();
         }
-        
-        for (int i = boyut; i > index; i--) {
-            array[i]=array[i-1];
-        }
-        
-        array[index]=veri;
-        boyut++;
+
+        array[size] = data;
+        size++;
     }
-    
-    public void dizi_genislet(){
+
+    public void add(int data, int index) {
+
+        if (size == capacity) {
+            array_expand();
+        }
+
+        for (int i = size; i > index; i--) {
+            array[i] = array[i - 1];
+        }
+
+        array[index] = data;
+        size++;
+    }
+
+    public void array_expand() {
         //dizinin boyutunu iki katına çıkarır
-        int[] newArray=new int[kapasite*2];
-        
+        int[] newArray = new int[capacity * 2];
+
         //array dizisindeki elemanları newArray e atar
-        for (int i = 0; i < kapasite; i++) {
-            newArray[i]=array[i];                    
+        for (int i = 0; i < capacity; i++) {
+            newArray[i] = array[i];
         }
-        
-        array=newArray;
-        
-        this.kapasite=kapasite*2;
-    }
-    
-    public void sil() {
 
+        array = newArray;
+
+        this.capacity = capacity * 2;
     }
 
-    public void sil(int veri) {
-        array[boyut]=veri;
-        boyut--;
+    public void delete() {
+        size--;
+        this.array[size]=0;
     }
 
-    public void sil_index(int index){
-        
-        
-    }
-    
-    public int kapasite(){
-        return this.kapasite;        
-    }
-    
-    public void temizle(){
-        array=new int[kapasite];        
-    }
-    
-    public int uzunluk(){
-        return this.boyut;    
-    }
-    
-    
-    public static void main(String[] args) {
-
+    public void delete(int data) {
+        for (int i = data; i < size-1; i++) {
+            array[i]=array[i+1];
+        }
+        size--;        
     }
 
+    public void delete_index(int index) {
+        for (int i = index; i < size-1; i++) {
+            array[i]=array[i+1];
+        }
+        size--;        
+    }
+
+    public int capacity() {
+        return this.capacity;
+    }
+
+    public void clear() {
+        this.capacity=5;
+        this.size=0;
+        this.index=0;
+        this.array = new int[capacity];
+    }
+
+    public int length() {
+        return this.size;
+    }
+
+    public int get(int index) {
+        return array[index];
+    }
 }
-
