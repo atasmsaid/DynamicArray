@@ -1,5 +1,7 @@
 package dynamicarray;
 
+import java.util.Arrays;
+
 public class DynamicArray {
 
     private int[] array = null;
@@ -10,7 +12,7 @@ public class DynamicArray {
     public DynamicArray() {
         array = new int[capacity];
     }
-
+        
     public void add(int data) {
 
         if (size == capacity) {
@@ -26,11 +28,9 @@ public class DynamicArray {
         if (size == capacity) {
             array_expand();
         }
-
         for (int i = size; i > index; i--) {
             array[i] = array[i - 1];
         }
-
         array[index] = data;
         size++;
     }
@@ -85,5 +85,9 @@ public class DynamicArray {
 
     public int get(int index) {
         return array[index];
+    }
+    
+    public void printElements(){
+        System.out.println("elements in array are :"+Arrays.toString(array));
     }
 }
